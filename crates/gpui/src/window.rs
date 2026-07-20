@@ -2,6 +2,8 @@
 use crate::DebugFrameOverlayMode;
 #[cfg(any(feature = "inspector", debug_assertions))]
 use crate::Inspector;
+#[cfg(any(target_os = "linux", target_os = "freebsd"))]
+use crate::SamplerType;
 #[cfg(feature = "profiler")]
 use crate::profiler;
 use crate::{
@@ -4812,6 +4814,7 @@ impl Window {
         bounds: Bounds<Pixels>,
         texture: std::sync::Arc<dyn std::any::Any + Send + Sync>,
         texture_size: Size<DevicePixels>,
+        sampler_type: Option<SamplerType>,
     ) {
         use crate::PaintSurface;
 
@@ -4826,6 +4829,7 @@ impl Window {
             content_mask,
             texture,
             texture_size,
+            sampler_type: sampler_type.unwrap_or_default(),
         });
     }
 
