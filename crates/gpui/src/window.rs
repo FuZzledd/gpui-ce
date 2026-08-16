@@ -3026,8 +3026,6 @@ impl Window {
         #[cfg(any(feature = "inspector", debug_assertions))]
         let inspector_element = self.prepaint_inspector(_inspector_width, cx);
 
-        self.prepaint_deferred_draws(cx);
-
         let mut prompt_element = None;
         let mut active_drag_element = None;
         let mut tooltip_element = None;
@@ -3050,6 +3048,8 @@ impl Window {
         } else {
             tooltip_element = self.prepaint_tooltip(cx);
         }
+
+        self.prepaint_deferred_draws(cx);
 
         self.mouse_hit_test = self.next_frame.hit_test(self.mouse_position);
 
